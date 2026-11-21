@@ -2,3 +2,6 @@
 .env
 .env.*
 !.env.example
+
+# Claude Code local settings (may hold Langfuse keys)
+.claude/settings.local.json

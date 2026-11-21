@@ -27,4 +27,20 @@ A Claude Code subagent that generates documentation for your codebase. Invoked a
 
 ## Model
 
-Uses `claude-sonnet-4-5-20250929` with read/write file access only — no shell execution.
+Uses `claude-sonnet-5-5` with read/write file access only — no shell execution.
+
+## Tracing with Langfuse
+
+Sessions in this project are traced to Langfuse (turn traces, generation spans, tool spans, grouped by session).
+
+1. Create a Langfuse project (https://langfuse.com/cloud) and copy the API keys from Settings > API Keys.
+2. Install the plugin, then restart Claude Code. It prompts for `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_BASE_URL`:
+   ```bash
+   claude plugin marketplace add langfuse/Claude-Observability-Plugin
+   claude plugin install langfuse-observability@langfuse-observability
+   pip install "langfuse>=4.0,<5"
+   ```
+3. `.claude/settings.json` already sets `TRACE_TO_LANGFUSE=true` (no secrets). If you use the manual hook instead of the plugin, put keys in `.claude/settings.local.json`, which is gitignored.
+4. The base URL (EU `https://cloud.langfuse.com`, US `https://us.cloud.langfuse.com`, or self-hosted) comes from the plugin config; do not also set it in `.claude/settings.json`, or key/host mismatches cause 401s.
+
+Note: there is no redaction; text is only truncated to `CC_LANGFUSE_MAX_CHARS`. Don't trace sensitive repos.

@@ -1,7 +1,7 @@
 ---
 name: doc-writer
 description: Generate documentation. Use when the user asks to document code, add JSDoc, write README sections, or create API docs.
-model: claude-sonnet-4-5-20250929
+model: claude-sonnet-5-5
 tools:
   - Read
   - Grep
